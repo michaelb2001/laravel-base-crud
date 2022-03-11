@@ -31,7 +31,7 @@
             <td>{{$comic->type}}</th>
             <td><a href="{{route("comics.show",$comic->id)}}"><button class="btn btn-primary rounded-pill my-2">info</button></a>
             <a href="{{route("comics.edit",$comic->id)}}"><button class="btn btn-warning rounded-pill my-2">modify</button></a>
-            <form action="{{route("comics.destroy", $comic->id)}}" method="POST">
+            <form action="{{route("comics.destroy", $comic->id)}}" method="POST"   onsubmit="return confirm('awant to delet this element?')">
               @csrf
               @method("DELETE")
               <button type="submit" class="btn btn-danger">delete</button>
@@ -42,4 +42,5 @@
       
     </tbody>
   </table>
+  
 @endsection

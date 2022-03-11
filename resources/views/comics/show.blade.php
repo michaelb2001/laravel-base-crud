@@ -7,7 +7,7 @@
     <p>{{$comic->description}}</p>
     <img src="{{$comic->thumb}}">
 
-    <form action="{{route("comics.destroy", $comic->id)}}" method="POST">
+    <form action="{{route("comics.destroy", $comic->id)}}" method="POST"  onsubmit="return confirm('awant to delet this element?')">
         @csrf
         @method("DELETE")
         <button type="submit" class="btn btn-danger">cancella</button>
