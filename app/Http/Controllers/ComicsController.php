@@ -37,18 +37,28 @@ class ComicsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "title"=>"required|string|max:100|unique:comics",
+            "description"=>"required|string|unique:comics",
+            "thumb"=>"string|max:255|url",
+            "price"=>"required|between:0,99.99",
+            "series"=>"required|string|max:50",
+            "sale_date"=>"required|string|min:11|max:11",
+            "type"=>"required|string|max:50"
+        ]);
         //prendo i dati dalla form
        $data = $request->all();
 
        //inserisco un nuovo record
        $newComic = new Comic();
-       $newComic->title = $data['title'];
+       /*$newComic->title = $data['title'];
        $newComic->description = $data['description'];
        $newComic->thumb = $data['thumb'];
        $newComic->price = $data['price'];
        $newComic->series = $data['series'];
        $newComic->sale_date = $data['sale_date'];
-       $newComic->type = $data['type'];
+       $newComic->type = $data['type'];*/
+       $newComic->fill($data);
        $newComic->save();
 
        return redirect()->route('comics.show',$newComic->id);
@@ -87,7 +97,15 @@ class ComicsController extends Controller
      */
     public function update(Request $request,Comic $comic)
     {
-    
+        $request->validate([
+            "title"=>"required|string|max:100|",
+            "description"=>"required|string|",
+            "thumb"=>"string|max:255|url",
+            "price"=>"required|between:0,99.99",
+            "series"=>"required|string|max:50",
+            "sale_date"=>"required|string|min:10|max:10",
+            "type"=>"required|string|max:50"
+        ]);
        $data = $request->all();
 
        $comic->title = $data['title'];
